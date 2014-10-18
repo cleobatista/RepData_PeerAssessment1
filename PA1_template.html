@@ -332,7 +332,9 @@ bias into some calculations or summaries of the data.</p>
 <pre><code>## [1] 2304
 </code></pre>
 
-<p>And now, we can replace all missing values in the dataset with the average value</p>
+<p>And now, we can replace all missing values in the dataset with the average value
+. For this, we calculate the average of all steps values in &ldquo;x&rdquo; and fill the
+missing values.</p>
 
 <pre><code class="r">#to preserve the original dataset, we copy it to another object, called
 #&quot;xfilled&quot;
@@ -364,10 +366,22 @@ hist(d,breaks=10,xlab=&quot;steps number per day&quot;,main=&quot;Histogram of t
 <pre><code>## [1] 10766.19
 </code></pre>
 
+<pre><code class="r">mean(a,na.rm=T)
+</code></pre>
+
+<pre><code>## [1] 10766.19
+</code></pre>
+
 <pre><code class="r">median(d)
 </code></pre>
 
 <pre><code>## [1] 10766.19
+</code></pre>
+
+<pre><code class="r">median(a,na.rm=T)
+</code></pre>
+
+<pre><code>## [1] 10765
 </code></pre>
 
 <p>Observe that the &ldquo;mean(d)&rdquo; is equal to &ldquo;mean(a)&rdquo; and the &ldquo;median(d)&rdquo; is 

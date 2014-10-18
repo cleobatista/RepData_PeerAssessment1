@@ -145,6 +145,8 @@ length(x$steps[is.na(x$steps)])
 ```
 
 And now, we can replace all missing values in the dataset with the average value
+. For this, we calculate the average of all steps values in "x" and fill the
+missing values.
 ```{r, echo=TRUE}
 #to preserve the original dataset, we copy it to another object, called
 #"xfilled"
@@ -170,7 +172,9 @@ hist(d,breaks=10,xlab="steps number per day",main="Histogram of total steps
 
 ```{r, echo=TRUE}
 mean(d)
+mean(a,na.rm=T)
 median(d)
+median(a,na.rm=T)
 ```
 
 Observe that the "mean(d)" is equal to "mean(a)" and the "median(d)" is 
@@ -240,5 +244,4 @@ mean(dataweekend$steps)
 
 The 5-minute interval average across all weekends is approximately 30% greater 
 than the 5-minute interval average across all weekdays.
-
 

@@ -180,6 +180,8 @@ length(x$steps[is.na(x$steps)])
 ```
 
 And now, we can replace all missing values in the dataset with the average value
+. For this, we calculate the average of all steps values in "x" and fill the
+missing values.
 
 ```r
 #to preserve the original dataset, we copy it to another object, called
@@ -216,11 +218,27 @@ mean(d)
 ```
 
 ```r
+mean(a,na.rm=T)
+```
+
+```
+## [1] 10766.19
+```
+
+```r
 median(d)
 ```
 
 ```
 ## [1] 10766.19
+```
+
+```r
+median(a,na.rm=T)
+```
+
+```
+## [1] 10765
 ```
 
 Observe that the "mean(d)" is equal to "mean(a)" and the "median(d)" is 
@@ -306,5 +324,4 @@ mean(dataweekend$steps)
 
 The 5-minute interval average across all weekends is approximately 30% greater 
 than the 5-minute interval average across all weekdays.
-
 
