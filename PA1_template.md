@@ -54,7 +54,8 @@ This assignment is described in multiple parts.
 
 To load the dataset inside the workspace in R, the code below is needed:
 
-```{r}
+
+```r
 #check if the file was already extracted from zip file
 if(!file.exists("activity.csv"))
   unzip("activity.zip")
@@ -63,12 +64,16 @@ if(!file.exists("activity.csv"))
 x<-read.csv("activity.csv",header=T)
 #to convert "character" date column to Date format
 x$date<-as.Date(x$date)
-
 ```
 
 In default, the language has to be "en-US", for this, we use the code:
-```{r}
+
+```r
 Sys.setlocale("LC_TIME", "en_US.utf8")
+```
+
+```
+## [1] "en_US.utf8"
 ```
 
 Note this setlocale is only for Linux OS, for another OS, see the [R-manual]
@@ -80,7 +85,8 @@ Note this setlocale is only for Linux OS, for another OS, see the [R-manual]
 To get the mean total number of steps taken per day, a loop is needed to sum all
 the steps in each day. Look the code below:
 
-```{r}
+
+```r
 #a vector "a" is created to save the sum of each day, note that the sum() 
 #function is setted with "na.rm=F". If instead this, we would use "T", all the
 #missing values were rewritten as zero, causing a incorrect average result.
@@ -91,22 +97,39 @@ for (i in 1:length(unique(x$date)))
         }
 
 hist(a,breaks=10)
-
 ```
+
+![plot of chunk unnamed-chunk-3](figure/unnamed-chunk-3-1.png) 
 
 And the mean and median of total steps number per day is given by:
 
 
-```{r}
+
+```r
 mean(a,na.rm=T)
+```
+
+```
+## [1] 10766.19
+```
+
+```r
 median(a,na.rm=T)
+```
+
+```
+## [1] 10765
+```
+
+```r
 #here the missing values are ignored
 ```
 
 
 ### What is the average daily activity pattern?
 
-```{r}
+
+```r
 #a vector "b" is created to save the average of each day, note that the mean() 
 #function is setted with "na.rm=T"
 b<-as.numeric()
@@ -123,11 +146,18 @@ b[is.na(b)]<-0
 plot(b~unique(x$date),type="l",ylab="average number of steps", xlab="date")
 ```
 
+![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5-1.png) 
+
 And the 5-minute interval, on average across all the days in the dataset, 
 contains the maximum number of steps is:
-```{r}
+
+```r
 #to obtain the day with max number of steps
 unique(x$date)[which(b==max(b))]
+```
+
+```
+## [1] "2012-11-23"
 ```
 
 
@@ -138,12 +168,18 @@ values (coded as `NA`). The presence of missing days may introduce
 bias into some calculations or summaries of the data.
 
 The total number of missing values in the dataset is given by:
-```{r}
+
+```r
 length(x$steps[is.na(x$steps)])
 ```
 
+```
+## [1] 2304
+```
+
 And now, we can replace all missing values in the dataset with the average value
-```{r}
+
+```r
 #to preserve the original dataset, we copy it to another object, called
 #"xfilled"
 xfilled<-x
@@ -165,9 +201,23 @@ for (i in 1:length(unique(xfilled$date)))
 hist(d,breaks=10)
 ```
 
-```{r}
+![plot of chunk unnamed-chunk-8](figure/unnamed-chunk-8-1.png) 
+
+
+```r
 mean(d)
+```
+
+```
+## [1] 10766.19
+```
+
+```r
 median(d)
+```
+
+```
+## [1] 10766.19
 ```
 
 Observe that the "mean(d)" is equal to "mean(a)" and the "median(d)" is 
@@ -178,7 +228,8 @@ average value in the set is the same, but the median tends to approach to mean.
 
 ### Are there differences in activity patterns between weekdays and weekends?
 
-```{r}
+
+```r
 #a vector "e" is created to save the day type of each day
 e<-as.character()
 for (i in 1:length(unique(xfilled$date)))
@@ -221,16 +272,31 @@ plot(dataweekday$date,dataweekday$steps,type="l",ylab="average number of steps",
      xlab="weekday")
 plot(dataweekend$date,dataweekend$steps,type="l",ylab="average number of steps",
      xlab="weekend")
+```
 
+![plot of chunk unnamed-chunk-10](figure/unnamed-chunk-10-1.png) 
+
+```r
 #to reset the par(mfrow)
 par(mfrow=c(1,1)) 
-
 ```
 
 We can verify the average steps number for these two day types
-```{r}
+
+```r
 mean(dataweekday$steps)
+```
+
+```
+## [1] 25.48889
+```
+
+```r
 mean(dataweekend$steps)
+```
+
+```
+## [1] 32.9375
 ```
 
 The 5-minute interval average across all weekends is approximately 30% greater 
