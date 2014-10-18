@@ -96,7 +96,8 @@ for (i in 1:length(unique(x$date)))
         a<-c(a,sum(x$steps[x$date==unique(x$date)[i]],na.rm=F))
         }
 
-hist(a,breaks=10)
+hist(a,breaks=10,xlab="steps number per day",main="Histogram of total steps 
+     number per day")
 ```
 
 ![plot of chunk unnamed-chunk-3](figure/unnamed-chunk-3-1.png) 
@@ -143,7 +144,8 @@ for (i in 1:length(unique(x$date)))
 b[is.na(b)]<-0
 
 #a plot is created
-plot(b~unique(x$date),type="l",ylab="average number of steps", xlab="date")
+plot(b~unique(x$date),type="l",ylab="average number of steps", xlab="date",
+     main="Average number of steps in each 5-min interval per day")
 ```
 
 ![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5-1.png) 
@@ -198,7 +200,8 @@ for (i in 1:length(unique(xfilled$date)))
 
 #we can create a new histogram with the total steps number in each day, and
 #the missing values filled with the mean values.
-hist(d,breaks=10)
+hist(d,breaks=10,xlab="steps number per day",main="Histogram of total steps 
+     number per day (filled missing values)")
 ```
 
 ![plot of chunk unnamed-chunk-8](figure/unnamed-chunk-8-1.png) 
@@ -269,9 +272,11 @@ dataweekend$steps<-as.numeric(dataweekend$steps)
 
 par(mfrow=c(2,1)) 
 plot(dataweekday$date,dataweekday$steps,type="l",ylab="average number of steps",
-     xlab="weekday")
+     xlab="weekday",main="Average number of steps in each 5-min interval in
+     weekdays")
 plot(dataweekend$date,dataweekend$steps,type="l",ylab="average number of steps",
-     xlab="weekend")
+     xlab="weekend",main="Average number of steps in each 5-min interval in 
+     weekends")
 ```
 
 ![plot of chunk unnamed-chunk-10](figure/unnamed-chunk-10-1.png) 

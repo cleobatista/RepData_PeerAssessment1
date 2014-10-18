@@ -54,7 +54,7 @@ This assignment is described in multiple parts.
 
 To load the dataset inside the workspace in R, the code below is needed:
 
-```{r}
+```{r, echo=TRUE}
 #check if the file was already extracted from zip file
 if(!file.exists("activity.csv"))
   unzip("activity.zip")
@@ -67,7 +67,7 @@ x$date<-as.Date(x$date)
 ```
 
 In default, the language has to be "en-US", for this, we use the code:
-```{r}
+```{r, echo=TRUE}
 Sys.setlocale("LC_TIME", "en_US.utf8")
 ```
 
@@ -80,7 +80,7 @@ Note this setlocale is only for Linux OS, for another OS, see the [R-manual]
 To get the mean total number of steps taken per day, a loop is needed to sum all
 the steps in each day. Look the code below:
 
-```{r}
+```{r, echo=TRUE}
 #a vector "a" is created to save the sum of each day, note that the sum() 
 #function is setted with "na.rm=F". If instead this, we would use "T", all the
 #missing values were rewritten as zero, causing a incorrect average result.
@@ -90,14 +90,15 @@ for (i in 1:length(unique(x$date)))
         a<-c(a,sum(x$steps[x$date==unique(x$date)[i]],na.rm=F))
         }
 
-hist(a,breaks=10)
+hist(a,breaks=10,xlab="steps number per day",main="Histogram of total steps 
+     number per day")
 
 ```
 
 And the mean and median of total steps number per day is given by:
 
 
-```{r}
+```{r, echo=TRUE}
 mean(a,na.rm=T)
 median(a,na.rm=T)
 #here the missing values are ignored
@@ -106,7 +107,7 @@ median(a,na.rm=T)
 
 ### What is the average daily activity pattern?
 
-```{r}
+```{r, echo=TRUE}
 #a vector "b" is created to save the average of each day, note that the mean() 
 #function is setted with "na.rm=T"
 b<-as.numeric()
@@ -120,12 +121,13 @@ for (i in 1:length(unique(x$date)))
 b[is.na(b)]<-0
 
 #a plot is created
-plot(b~unique(x$date),type="l",ylab="average number of steps", xlab="date")
+plot(b~unique(x$date),type="l",ylab="average number of steps", xlab="date",
+     main="Average number of steps in each 5-min interval per day")
 ```
 
 And the 5-minute interval, on average across all the days in the dataset, 
 contains the maximum number of steps is:
-```{r}
+```{r, echo=TRUE}
 #to obtain the day with max number of steps
 unique(x$date)[which(b==max(b))]
 ```
@@ -138,12 +140,12 @@ values (coded as `NA`). The presence of missing days may introduce
 bias into some calculations or summaries of the data.
 
 The total number of missing values in the dataset is given by:
-```{r}
+```{r, echo=TRUE}
 length(x$steps[is.na(x$steps)])
 ```
 
 And now, we can replace all missing values in the dataset with the average value
-```{r}
+```{r, echo=TRUE}
 #to preserve the original dataset, we copy it to another object, called
 #"xfilled"
 xfilled<-x
@@ -162,10 +164,11 @@ for (i in 1:length(unique(xfilled$date)))
 
 #we can create a new histogram with the total steps number in each day, and
 #the missing values filled with the mean values.
-hist(d,breaks=10)
+hist(d,breaks=10,xlab="steps number per day",main="Histogram of total steps 
+     number per day (filled missing values)")
 ```
 
-```{r}
+```{r, echo=TRUE}
 mean(d)
 median(d)
 ```
@@ -178,7 +181,7 @@ average value in the set is the same, but the median tends to approach to mean.
 
 ### Are there differences in activity patterns between weekdays and weekends?
 
-```{r}
+```{r, echo=TRUE}
 #a vector "e" is created to save the day type of each day
 e<-as.character()
 for (i in 1:length(unique(xfilled$date)))
@@ -218,9 +221,11 @@ dataweekend$steps<-as.numeric(dataweekend$steps)
 
 par(mfrow=c(2,1)) 
 plot(dataweekday$date,dataweekday$steps,type="l",ylab="average number of steps",
-     xlab="weekday")
+     xlab="weekday",main="Average number of steps in each 5-min interval in
+     weekdays")
 plot(dataweekend$date,dataweekend$steps,type="l",ylab="average number of steps",
-     xlab="weekend")
+     xlab="weekend",main="Average number of steps in each 5-min interval in 
+     weekends")
 
 #to reset the par(mfrow)
 par(mfrow=c(1,1)) 
@@ -228,7 +233,7 @@ par(mfrow=c(1,1))
 ```
 
 We can verify the average steps number for these two day types
-```{r}
+```{r, echo=TRUE}
 mean(dataweekday$steps)
 mean(dataweekend$steps)
 ```
